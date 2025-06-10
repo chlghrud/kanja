@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Kingnight : MonoBehaviour
 {
+    public int MaxHp = 100;
+    private int Hp;
     private Animator animator;
     public SkillCollTime Block = new SkillCollTime(1f);
     private SkillCollTime Attack1 = new SkillCollTime(0.5f);
@@ -12,6 +14,7 @@ public class Kingnight : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        Hp = MaxHp;
     }
 
  
@@ -38,7 +41,10 @@ public class Kingnight : MonoBehaviour
             animator.SetTrigger("Attack3");
         }
     }
-    
+    public void Hit(int damage)
+    {
+        Hp = Mathf.Clamp(Hp - damage, 0, MaxHp);
+    }
     
 }
 public class SkillCollTime
