@@ -10,6 +10,7 @@ public class Cat : MonoBehaviour
     public LayerMask groundLayer;
     public Transform groundCheck;
     public GameObject comp;
+    public int a;
 
     private Companion companion;
     private byte pressECount = 0;
@@ -25,7 +26,6 @@ public class Cat : MonoBehaviour
         spriter = GetComponent<SpriteRenderer>(); // spriter 를 가지고온 이유가 flipX 로 왼쪽오른쪽 이동 할 때 반전하려고
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-
         if (comp.CompareTag("companion"))
         {
             companion = comp.GetComponent<Companion>();
@@ -41,10 +41,13 @@ public class Cat : MonoBehaviour
         if (companion == null)
             return;
 
+       
         moveX = Input.GetAxis("Horizontal");
 
+        
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-
+        Debug.Log(isGrounded);
+        Debug.Log(groundCheck.position);
         Animation();
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -56,6 +59,11 @@ public class Cat : MonoBehaviour
             Jump();
         }
 
+    }
+
+    private void LateUpdate()
+    {
+        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
     }
 
     private void Jump()
