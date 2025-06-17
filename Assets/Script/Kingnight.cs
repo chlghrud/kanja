@@ -45,8 +45,12 @@ public class Kingnight : MonoBehaviour
     {
         Hp = Mathf.Clamp(Hp - damage, 0, MaxHp);
     }
-    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
 }
+
 public class SkillCollTime
 {
     private float Cooltime = 0f;

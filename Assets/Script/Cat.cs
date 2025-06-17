@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class Cat : MonoBehaviour
 {
-    public float moveSpeed = 5f;
     public float jumpForce = 7f;
     public LayerMask groundLayer;
     public Transform groundCheck;
     public GameObject comp;
-    public int a;
+    public float DashForce = 10f;
+    public float Speed = 5f;
 
+    private float moveSpeed = 5f;
     private Companion companion;
     private byte pressECount = 0;
     private bool isGrounded = false;
@@ -46,9 +47,12 @@ public class Cat : MonoBehaviour
 
         
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-        Debug.Log(isGrounded);
-        Debug.Log(groundCheck.position);
         Animation();
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            StartCoroutine(Dash());
+        }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -58,6 +62,19 @@ public class Cat : MonoBehaviour
         {
             Jump();
         }
+
+    }
+
+    private IEnumerator Dash()
+    {
+
+        //rb.AddForce(new Vector2(moveX * DashForce, 0f));
+        //Debug.Log((moveX * DashForce) + " "+ moveX);
+        // rb.velocity = new Vector2(rb.velocity.x * DashForce, rb.velocity.y);
+        
+        moveSpeed = DashForce;
+        yield return new WaitForSeconds(0.5f);
+        moveSpeed = Speed;
 
     }
 
@@ -72,7 +89,7 @@ public class Cat : MonoBehaviour
         animator.SetTrigger("isJump");
     }
 
-    private void Swap()
+    public void Swap()
     {
         if (pressECount == 0)
         {
@@ -86,8 +103,8 @@ public class Cat : MonoBehaviour
         else if (pressECount == 1)
         {
             canMove = true;
-            companion.fadeOut();
             pressECount = 0;
+            companion.fadeOut();
             animator.SetInteger("mode", 0);
         }
 
