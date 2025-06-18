@@ -20,17 +20,17 @@ public class Kingnight : MonoBehaviour
  
     void Update()
     {
-        if(Input.GetMouseButtonDown(1) && Block.CanUse())
+        if(Input.GetKeyDown(KeyCode.D) && Block.CanUse())
         {
             Block.Use();
             animator.SetTrigger("Block");
         }
-        if (Input.GetMouseButtonDown(0) && Attack1.CanUse())
+        if (Input.GetKeyDown(KeyCode.A) && Attack1.CanUse())
         {
             Attack1.Use();
             animator.SetTrigger("Attack1");
         }
-        if (Input.GetKeyDown(KeyCode.Q) && Attack2.CanUse())
+        if (Input.GetKeyDown(KeyCode.S) && Attack2.CanUse())
         {
             Attack2.Use();
             animator.SetTrigger("Attack2");
