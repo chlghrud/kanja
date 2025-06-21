@@ -6,6 +6,7 @@ public class Companion : MonoBehaviour
 {
     public Transform catTransform;
     public CatMove cat;
+
     private SpriteRenderer spriter;
     private Collider2D companionColleder;
     internal Coroutine currentCoroutine;
@@ -31,7 +32,6 @@ public class Companion : MonoBehaviour
         companionColleder.enabled = true;
         if (isLeft)
         {
-            companionColleder.transform.position = new Vector2(catTransform.position.x - 1.7f, transform.position.y);
             transform.position = new Vector2(catTransform.position.x - 1.7f, transform.position.y);
         }
         else
@@ -57,30 +57,17 @@ public class Companion : MonoBehaviour
 
         currentCoroutine = StartCoroutine(coroutineFunc());
     }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision != null)
-        {
-
-            if (collision.collider.CompareTag("Ground"))
-            {
-                fadeOut();
-                if (cat != null)
-                    cat.Swap();
-            }
-        }
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision != null)
         {
-            
+
             ContactPoint2D contac = collision.contacts[0]; // 첫번째 충돌면 가저오기
-            if (contac.normal == Vector2.up && collision.contacts.Length <= 4) // contac.normal <- 첫번째 충돌면의 법선백터를 가지고와서 만약 기울기가 수직이면 == 점프뒤 정확한 착지를하면 fadeOut 하지않음
+            if (contac.normal == Vector2.up)  // contac.normal <- 첫번째 충돌면의 법선백터를 가지고와서 만약 기울기가 수직이면 == 점프뒤 정확한 착지를하면 fadeOut 하지않음
                 return;
             if (collision.collider.CompareTag("Ground"))
             {
-                fadeOut();
+                StartMyCoroutine(() => fadeOut());
                 if (cat != null)
                     cat.Swap();
             }
