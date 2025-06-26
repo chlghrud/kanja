@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Attack1
   m_EditorClassIdentifier: 
   skillName: Attack2
-  cooldown: 0.5
-  damage: 10
+  cooldown: 1
+  damage: 2
+  animator: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8

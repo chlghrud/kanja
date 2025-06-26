@@ -12,6 +12,7 @@ public class KingnightFight : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        skills[0].ResetCooldown();
     }
 
  
@@ -28,8 +29,9 @@ public class KingnightFight : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            skills[0].animator = this.animator;
             HitBox = skills[0].DrawHitBox();
-            skills[0].TryExecute(hitPos, animator);
+            skills[0].TryExecute(hitPos);
         }
         if (Input.GetKeyDown(KeyCode.R))
         {

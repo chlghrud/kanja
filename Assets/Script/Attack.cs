@@ -10,16 +10,15 @@ public class Attack : SkillBase
         return Hitbox;
     }
 
-    public override void Execute(Transform origin, Animator animator)
+    public override void Execute(Transform origin)
     {
-        animator.SetTrigger(skillName);
-        Debug.Log("실2");
+
+
         Collider2D[] enemies = Physics2D.OverlapBoxAll(origin.position, Hitbox, enemyLayer);
         foreach (var enemy in enemies)
         {
-            if (enemy.gameObject.layer == enemyLayer)
+            if (enemy.gameObject.layer == 3)
             {
-                Debug.Log("실1");
                 enemy.GetComponent<HealthController>().Damage(damage);
             }
         }

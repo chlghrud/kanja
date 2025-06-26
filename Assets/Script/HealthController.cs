@@ -7,24 +7,31 @@ public class HealthController : MonoBehaviour
 {
     public float maxHealt = 10f;
     private float Health;
+    private Animator animator;
+    private Collider2D collider;
 
     void Start()
     {
         Health = maxHealt;
+        animator = GetComponent<Animator>();
+        collider = GetComponent<Collider2D>();
     }
     public void Damage(float f)
     {
         Health = Mathf.Clamp(Health - f, 0, maxHealt);
-        Debug.Log("타격\n   남은 생명" + Health);
-        if(Health == 0)
+        
+        if (Health == 0)
         {
             Dath();
         }
+        else
+        animator.SetTrigger("Damage");
     }
 
     private void Dath()
     {
-        Debug.Log("사망");
+        animator.SetTrigger("Death");
+        collider.enabled = false;
     }
 
     void Update()

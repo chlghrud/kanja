@@ -47,7 +47,7 @@ public class CatMove : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
         Animation();
 
-        if (Input.GetKeyDown(KeyCode.F) && canMove)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canMove)
         {
             StartCoroutine(Dash());
         }
